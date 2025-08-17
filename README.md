@@ -1,5 +1,5 @@
 
-# Inteligência de Mercado e Análise de Inovação
+# Jornada Mastera
 
 
 **Link para a aplicação:** [Acesse aqui](https://jornadamastera.streamlit.app/)
