@@ -16,9 +16,9 @@ st.markdown("<h1 style='text-align: center;'>Jornada Mastera</h1>", unsafe_allow
 col1, col2, col3 = st.columns([1, 2, 1])
 
 with col2:
-    searchSubject = st.text_input("Digite o assunto para pesquisar artigos e patentes:", "hyperthyroidism")
-    yearsToSearch = st.number_input("Digite o número de anos para pesquisar:", min_value=1, max_value=20, value=5)
-    limitRecent = st.number_input("Digite o número de artigos e patentes mais recentes para buscar:", min_value=1, max_value=20, value=5)
+    searchSubject = st.text_input("Digite o assunto para pesquisar artigos e patentes:", "Câncer")
+    yearsToSearch = st.number_input("Digite o número de anos para pesquisar:", min_value=3, max_value=10, value=5)
+    limitRecent = st.number_input("Digite o número de artigos e patentes mais recentes para buscar:", min_value=3, max_value=10, value=5)
     searchButton = st.button("Buscar Artigos e Patentes", use_container_width=True)
 
 if searchButton:
@@ -46,14 +46,14 @@ if searchButton:
               Total Patents: {totalPatents}\n
               Recent Patents: {googlePatentsResponseData.get('mostRecent', [])}\n
               Gap Score: {gapScore*100}"""
-            #geminiResponse = manager.callModel(geminiData)
+            geminiResponse = manager.getModelResponse(geminiData)
 
         st.success("Busca concluída com sucesso!")
         st.subheader("Resultado Final")
         st.markdown(f"**Gap Score:** {(gapScore*100):.2f}")
         
         st.markdown(f"### Análise e resumo gerado pelo Gemini")
-        #st.write(geminiResponse)
+        st.markdown(geminiResponse)
 
        
 
@@ -104,9 +104,9 @@ if searchButton:
                 st.markdown(f"**Número de Publicação:** {patent.get('publicationNumber', 'N/A')}")
                 st.markdown(f"**Cessionário:** {patent.get('assignee', 'N/A')}")
                 st.markdown(f"**Data de Prioridade:** {patent.get('priorityDate', 'N/A')}")
-                with st.expander("Fragmento"):
+                with st.expander("Trecho"):
                     st.write(patent.get('snippet', 'N/A'))
-                with st.expander("Status por País/Data de Concessão"):
+                with st.expander("Status por País"):
                     #countryStatus is a dict in string format, so we convert it to a dict before displaying
                     countryStatus = patent.get('countryStatus', 'N/A')
                     if isinstance(countryStatus, str) and countryStatus != 'N/A':
