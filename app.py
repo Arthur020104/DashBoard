@@ -24,7 +24,7 @@ with col2:
 if searchButton:
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        with st.spinner("Buscando dados..."):
+        with st.spinner("Buscando dados... Isso demora um pouco"):
             searchSubject = asyncio.run(translateIfNeeded(searchSubject))
             print(f"Searching for: {searchSubject}")
             
