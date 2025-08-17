@@ -1,7 +1,7 @@
 from googlePatents import getDataFromSerpApi
 from apiCalls import getDataFromPubmedApi
 from db import Database
-
+from gapCalc import calculateGapScore
 
 class Manager:
     def __init__(self):
@@ -62,3 +62,22 @@ class Manager:
                 self._db.executeQuery(f"INSERT INTO action (sessionId, action, inputs, result, time) VALUES ({self._session}, 'getDataFromPubmedApi', '{inputStr}', 'error: {e}', NOW())")
                 self._db.close(connection)
             data = {}
+    def calculateGapScore(self, articlesByYear: dict, patentsByYear: dict) -> dict:
+        inputDict = {
+            "articlesByYear": articlesByYear,
+            "patentsByYear": patentsByYear
+        }
+        inputStr = str(inputDict).replace("'", '"')
+        try:
+            gapScore = calculateGapScore(articlesByYear, patentsByYear)
+            gapScoreStr = str(gapScore)
+            with self._db.connect() as connection:
+                self._db.executeQuery(f"INSERT INTO action (sessionId, action, inputs, result, time) VALUES ({self._session}, 'gapCalc', '{inputStr}', '{gapScoreStr}', NOW())")
+                self._db.close(connection)
+            return gapScore
+        except Exception as e:
+            print(f"An error occurred while calculating the gap score: {e}")
+            with self._db.connect() as connection:
+                self._db.executeQuery(f"INSERT INTO action (sessionId, action, inputs, result, time) VALUES ({self._session}, 'gapCalc', '{inputStr}', 'error: {e}', NOW())")
+                self._db.close(connection)
+            return -1
