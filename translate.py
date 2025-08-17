@@ -1,12 +1,13 @@
 from langdetect import detect
-from deep_translator import GoogleTranslator
+from googletrans import Translator
 
-def translateIfNeeded(text):
+async def translateIfNeeded(text):
     try:
         language = detect(text)
         if language != 'en':
-            translateText = GoogleTranslator(source=language, target='en').translate(text)
-            return translateText.lower()
+            translator = Translator()
+            translated = await translator.translate(text, src=language, dest='en')
+            return translated.text.lower()
         
         return text.lower()
     except Exception as e:
