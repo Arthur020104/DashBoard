@@ -102,7 +102,6 @@ def getDataFromPubmedApi(subject: str, rangeYears: int = 5, mostRecentLimit: int
             articles = fetchArticlesWithId(idList)
             data['mostRecent'] = articles
             
-            print(f"Successfully fetched details for {len(data['mostRecent'])} articles.")
 
         except Exception as e:
             print(f"An error occurred while fetching recent articles: {e}")
