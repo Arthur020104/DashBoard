@@ -2,6 +2,7 @@ from googlePatents import getDataFromSerpApi
 from apiCalls import getDataFromPubmedApi
 from db import Database
 from gapCalc import calculateGapScore
+from gemini import callModel
 
 class Manager:
     def __init__(self):
@@ -81,3 +82,21 @@ class Manager:
                 self._db.executeQuery(f"INSERT INTO action (sessionId, action, inputs, result, time) VALUES ({self._session}, 'gapCalc', '{inputStr}', 'error: {e}', NOW())")
                 self._db.close(connection)
             return -1
+    def getModelResponse(self, data: str) -> str:
+        inputDict = {
+            "data": data
+        }
+        inputStr = str(inputDict).replace("'", '"')
+        try:
+            response = callModel(data).text.strip()
+            responseStr = str(response)
+            with self._db.connect() as connection:
+                self._db.executeQuery(f"INSERT INTO action (sessionId, action, inputs, result, time) VALUES ({self._session}, 'getModelResponse', '{inputStr}', '{responseStr}', NOW())")
+                self._db.close(connection)
+            return response
+        except Exception as e:
+            print(f"An error occurred while calling the model: {e}")
+            with self._db.connect() as connection:
+                self._db.executeQuery(f"INSERT INTO action (sessionId, action, inputs, result, time) VALUES ({self._session}, 'getModelResponse', '{inputStr}', 'error: {e}', NOW())")
+                self._db.close(connection)
+            return ""
