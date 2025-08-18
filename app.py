@@ -16,7 +16,7 @@ st.markdown("<h1 style='text-align: center;'>Jornada Mastera</h1>", unsafe_allow
 col1, col2, col3 = st.columns([1, 2, 1])
 
 with col2:
-    searchSubject = st.text_input("Digite o assunto para pesquisar artigos e patentes:", "Câncer")
+    searchSubject = st.text_input("Digite o assunto para pesquisar artigos e patentes (Uso de nomes científicos geralmente oferece melhores resultados):", "Câncer")
     yearsToSearch = st.number_input("Digite o número de anos para pesquisar:", min_value=3, max_value=10, value=5)
     limitRecent = st.number_input("Digite o número de artigos e patentes mais recentes para buscar:", min_value=3, max_value=10, value=5)
     searchButton = st.button("Buscar Artigos e Patentes", use_container_width=True)
