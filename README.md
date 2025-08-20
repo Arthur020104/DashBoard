@@ -70,13 +70,13 @@ A aplicação está configurada para usar um banco de dados PostgreSQL hospedado
 
 1.  **Abra o pgAdmin** e clique com o botão direito em `Servers` -> `Create` -> `Server...`.
 2.  Na aba **General**, dê um nome para a conexão (ex: `Projeto_Inovacao_Neon`).
-3.  Vá para a aba **Connection** e preencha os campos com as informações da sua URL de conexão (`postgresql://user:password@host:port/dbname`):
-    * **Host name/address**: `ep-rough-thunder-acwwnm2x-pooler.sa-east-1.aws.neon.tech`
+3.  Vá para a aba **Connection** e preencha os campos com as informações abaixo:
+    * **Host name/address**: `ep-purple-sky-adgqdfy4-pooler.c-2.us-east-1.aws.neon.tech`
     * **Port**: `5432`
     * **Maintenance database**: `neondb`
     * **Username**: `neondb_owner`
-    * **Password**: `npg_Ssl0nj9VZOdy`
-4.  Vá para a aba **SSL** e mude a opção **SSL mode** para `Require`. Isso é fundamental para a conexão com a Neon.
+    * **Password**: `npg_naYC4Lup6ZvF`
+4.  Vá para a aba **SSL** e mude a opção **SSL mode** para `Require`. Defina também **Channel Binding** como `require`.
 5.  Clique em **Save** para finalizar. Agora você pode explorar o banco de dados através do pgAdmin.
 
 ### Fontes de Dados e APIs
